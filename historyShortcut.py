@@ -17,12 +17,14 @@ url = input('Введіть повну адресу теста:\n')
 test_name = url[url.find('.info/')+6:-1]
 whole_test_as_text = getHTML(url)
 try:
-    os.mkdir('tests')
+    os.mkdir('html')
     os.mkdir('output')
 except FileExistsError:
-    with open('tests/' + test_name + '.html', 'wb') as whole_test:
+    print('Створено теки')
+finally:
+    with open('html/' + test_name + '.html', 'wb') as whole_test:
         whole_test.write(whole_test_as_text)
-    with open('tests/' + test_name + '.html', 'rb') as whole_test:
+    with open('html/' + test_name + '.html', 'rb') as whole_test:
         soup = BeautifulSoup(whole_test, 'html.parser')
         question_quantity = int(soup.find('span', {'class': 'wpProQuiz_correct_answer'}).findNext('span').text)
         for script in soup.findAll('script', {'type': 'text/javascript'}):
