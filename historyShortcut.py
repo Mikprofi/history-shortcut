@@ -1,4 +1,4 @@
-import requests, json
+import requests, json, os
 from bs4 import BeautifulSoup
 
 
@@ -16,6 +16,8 @@ def getHTML(url):
 url = input('Введіть повну адресу теста:\n')
 test_name = url[url.find('.info/')+6:-1]
 whole_test_as_text = getHTML(url)
+os.mkdir('tests')
+os.mkdir('output')
 
 with open('tests/' + test_name + '.html', 'wb') as whole_test:
     whole_test.write(whole_test_as_text)
